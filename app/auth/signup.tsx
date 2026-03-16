@@ -25,10 +25,6 @@ export default function SignupScreen() {
     updateFormData,
     nextStep,
     prevStep,
-    selectedDays,
-    toggleDay,
-    selectedHours,
-    setSelectedHours,
     attachedFile,
     handleDocumentPick,
     removeFile,
@@ -116,4 +112,3 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.xl,
   },
 });
-
