@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
@@ -16,7 +16,6 @@ import { Colors, Spacing, Typography } from '../../constants/Theme';
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
 
   const handleLogin = () => {
     // Implement login logic
@@ -58,8 +57,7 @@ export default function LoginScreen() {
               secureTextEntry
               icon="lock-closed-outline"
               onForgotPress={() => {
-                // Implement forgot password logic
-                console.log('Forgot password pressed');
+                router.push('/auth/forgot-password');
               }}
             />
 

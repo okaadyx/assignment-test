@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import * as DocumentPicker from 'expo-document-picker';
 import { SignupFormData, SignupStep, AttachedFile, RegisterRequest, BusinessHours } from '../types/SignupTypes';
 import { api } from '../services';
@@ -34,8 +34,6 @@ export const useSignupForm = () => {
   const [attachedFile, setAttachedFile] = useState<AttachedFile | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const router = useRouter();
 
   const updateFormData = (data: Partial<SignupFormData>) => {
     setFormData(prev => ({ ...prev, ...data }));
