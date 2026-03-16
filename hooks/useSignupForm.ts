@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { router } from 'expo-router';
 import * as DocumentPicker from 'expo-document-picker';
-import { SignupFormData, SignupStep, AttachedFile, RegisterRequest, BusinessHours } from '../types/SignupTypes';
+import { SignupFormData, SignupStep, AttachedFile, RegisterRequest, BusinessHours } from '../types/UserTypes';
 import { api } from '../services';
 
 export const useSignupForm = () => {
@@ -161,7 +161,7 @@ export const useSignupForm = () => {
       console.log('Submitting signup with payload:', JSON.stringify(payload, null, 2));
 
       const response = await api.user.signup(payload);
-      if (String(response.success) === "true") {
+      if (String(response.success).toLowerCase() === "true") {
         setStep(5);
       } else {
         setError(response.message);

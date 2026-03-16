@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { AppInput, AppButton, SocialLink } from '../core';
 import { Colors, Spacing } from '../../constants/Theme';
-import { StepProps } from '../../types/SignupTypes';
+import { StepProps } from "../../types/UserTypes";
 
 export const Step1Welcome: React.FC<StepProps> = ({ formData, updateFormData, nextStep, error }) => {
   const router = useRouter();

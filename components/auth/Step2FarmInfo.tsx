@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { AppInput, AppButton } from '../core';
 import { StateModal } from '../modal';
 import { Colors, Spacing } from '../../constants/Theme';
-import { StepProps } from '../../types/SignupTypes';
+import { StepProps } from '../../types/UserTypes';
 
 export const Step2FarmInfo: React.FC<StepProps> = ({ formData, updateFormData, nextStep, prevStep, error }) => {
   const [showStateModal, setShowStateModal] = useState(false);

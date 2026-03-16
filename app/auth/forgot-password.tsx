@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -11,15 +11,16 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppButton, AppInput, SignupHeader } from '../../components';
 import { Colors, Spacing, Typography } from '../../constants/Theme';
+import { useForgotPasswordForm } from '../../hooks';
 
 export default function ForgotPasswordScreen() {
-  const [phone, setPhone] = useState('');
-
-  const handleSendCode = () => {
-    // Implement send code logic
-    console.log('Send code to:', phone);
-    router.push('/auth/verify-otp');
-  };
+  const {
+    phone,
+    setPhone,
+    loading,
+    error,
+    handleSendCode
+  } = useForgotPasswordForm();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,10 +47,13 @@ export default function ForgotPasswordScreen() {
               icon="call-outline"
             />
 
+            {error && <Text style={styles.errorText}>{error}</Text>}
+
             <AppButton
-              title="Send Code"
+              title={loading ? "Sending..." : "Send Code"}
               onPress={handleSendCode}
               style={styles.button}
+              disabled={loading}
             />
           </View>
         </ScrollView>
@@ -92,5 +96,11 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: Spacing.lg,
+  },
+  errorText: {
+    ...Typography.body,
+    color: Colors.error,
+    textAlign: 'center',
+    marginBottom: Spacing.md,
   },
 });

@@ -1,4 +1,3 @@
-import { Ionicons } from '@expo/vector-icons';
 
 export type SignupStep = 1 | 2 | 3 | 4 | 5;
 
@@ -54,6 +53,47 @@ export interface RegisterResponse {
   success: string;
   message: string;
   token?: string;
+}
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+  role: string;
+  device_token: string;
+  type: string;
+  social_id?: string;
+}
+
+export interface LoginResponse {
+  success: string;
+  message: string;
+  token?: string;
+}
+
+export interface VerifyOtpRequest {
+  otp: string;
+}
+
+export interface VerifyOtpResponse {
+  success: string;
+  message: string;
+  token?: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
+  password: string;
+  cpassword: string;
+}
+
+export interface ResetPasswordResponse {
+  success: string;
+  message: string;
+  is_verified?: string;
+}
+
+export interface ForgotPasswordRequest {
+  phone: string;
 }
 
 export interface StepProps {

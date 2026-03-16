@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -11,15 +11,21 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppButton, AppInput, SignupHeader } from '../../components';
 import { Colors, Spacing, Typography } from '../../constants/Theme';
+import { useResetPasswordForm } from '../../hooks';
 
 export default function ResetPasswordScreen() {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const {
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    loading,
+    error,
+    handleResetPassword
+  } = useResetPasswordForm();
 
   const handleSubmit = () => {
-    // Implement reset password logic
-    console.log('Password reset with:', newPassword);
-    router.push('/auth/login');
+    handleResetPassword();
   };
 
   return (
@@ -41,8 +47,8 @@ export default function ResetPasswordScreen() {
           <View style={styles.form}>
             <AppInput
               placeholder="New Password"
-              value={newPassword}
-              onChangeText={setNewPassword}
+              value={password}
+              onChangeText={setPassword}
               secureTextEntry
               icon="lock-closed-outline"
             />
@@ -55,10 +61,13 @@ export default function ResetPasswordScreen() {
               icon="lock-closed-outline"
             />
 
+            {error && <Text style={styles.errorText}>{error}</Text>}
+
             <AppButton
-              title="Submit"
+              title={loading ? "Resetting..." : "Submit"}
               onPress={handleSubmit}
               style={styles.button}
+              disabled={loading}
             />
           </View>
         </ScrollView>
@@ -101,5 +110,11 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: Spacing.lg,
+  },
+  errorText: {
+    ...Typography.body,
+    color: Colors.error,
+    textAlign: 'center',
+    marginBottom: Spacing.md,
   },
 });

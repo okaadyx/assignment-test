@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DAYS, TIME_SLOTS } from '../../constants/SignupConstants';
 import { Colors, Spacing } from '../../constants/Theme';
-import { BusinessHours, Step4Props } from '../../types/SignupTypes';
+import { BusinessHours, Step4Props } from '../../types/UserTypes';
 import { AppButton } from '../core';
 
 export const Step4BusinessHours: React.FC<Step4Props> = ({

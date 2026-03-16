@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { AppButton } from '../core';
 import { Colors, Spacing } from '../../constants/Theme';
-import { Step3Props } from '../../types/SignupTypes';
+import { Step3Props } from "../../types/UserTypes";
 
 export const Step3Verification: React.FC<Step3Props> = ({ 
   nextStep, 

@@ -1,26 +1,28 @@
 import { router } from 'expo-router';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppButton, AppInput, SignupHeader, SocialLink } from '../../components';
 import { Colors, Spacing, Typography } from '../../constants/Theme';
+import { useLoginForm } from '../../hooks';
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = () => {
-    // Implement login logic
-    console.log('Login with:', email, password);
-  };
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    loading,
+    error,
+    handleLogin
+  } = useLoginForm();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,10 +63,13 @@ export default function LoginScreen() {
               }}
             />
 
+            {error && <Text style={styles.errorText}>{error}</Text>}
+
             <AppButton
-              title="Login"
+              title={loading ? "Logging in..." : "Login"}
               onPress={handleLogin}
               style={styles.loginButton}
+              disabled={loading}
             />
 
             <View style={styles.dividerContainer}>
@@ -113,6 +118,12 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
+  },
+  errorText: {
+    ...Typography.body,
+    color: Colors.error,
+    textAlign: 'center',
+    marginBottom: Spacing.md,
   },
   loginButton: {
     marginTop: Spacing.lg,

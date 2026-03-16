@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -13,9 +13,17 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppButton, SignupHeader } from '../../components';
 import { Colors, Spacing, Typography } from '../../constants/Theme';
+import { useVerifyOtpForm } from '../../hooks';
 
 export default function VerifyOTPScreen() {
-  const [otp, setOtp] = useState(['', '', '', '', '']);
+  const {
+    otp,
+    setOtp,
+    loading,
+    error,
+    handleVerifyOtp
+  } = useVerifyOtpForm();
+
   const inputRefs = useRef<TextInput[]>([]);
 
   const handleOtpChange = (value: string, index: number) => {
@@ -36,9 +44,7 @@ export default function VerifyOTPScreen() {
   };
 
   const handleSubmit = () => {
-    const otpValue = otp.join('');
-    console.log('OTP submitted:', otpValue);
-    router.push('/auth/reset-password');
+    handleVerifyOtp();
   };
 
   return (
@@ -73,10 +79,13 @@ export default function VerifyOTPScreen() {
               ))}
             </View>
 
+            {error && <Text style={styles.errorText}>{error}</Text>}
+
             <AppButton
-              title="Submit"
+              title={loading ? "Verifying..." : "Submit"}
               onPress={handleSubmit}
               style={styles.button}
+              disabled={loading}
             />
 
             <TouchableOpacity style={styles.resendContainer}>
@@ -148,5 +157,11 @@ const styles = StyleSheet.create({
     color: Colors.text,
     fontWeight: 'bold',
     textDecorationLine: 'underline',
+  },
+  errorText: {
+    ...Typography.body,
+    color: Colors.error,
+    textAlign: 'center',
+    marginBottom: Spacing.md,
   },
 });
