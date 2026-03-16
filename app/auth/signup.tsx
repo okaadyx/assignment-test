@@ -35,6 +35,7 @@ export default function SignupScreen() {
     activeDay,
     setActiveDay,
     toggleTimeSlot,
+    router,
   } = useSignupForm();
 
   const renderStep = () => {

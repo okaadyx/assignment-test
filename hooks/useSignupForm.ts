@@ -163,7 +163,7 @@ export const useSignupForm = () => {
       console.log('Submitting signup with payload:', JSON.stringify(payload, null, 2));
 
       const response = await api.user.signup(payload);
-      if (response.success === "true") {
+      if (String(response.success) === "true") {
         setStep(5);
       } else {
         setError(response.message);
