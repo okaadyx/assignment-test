@@ -6,14 +6,15 @@ import { StateModal } from '../modal';
 import { Colors, Spacing } from '../../constants/Theme';
 import { StepProps } from '../../types/SignupTypes';
 
-const { height } = Dimensions.get('window');
-
-export const Step2FarmInfo: React.FC<StepProps> = ({ formData, updateFormData, nextStep, prevStep }) => {
+export const Step2FarmInfo: React.FC<StepProps> = ({ formData, updateFormData, nextStep, prevStep, error }) => {
   const [showStateModal, setShowStateModal] = useState(false);
 
   return (
     <View>
       <Text style={styles.title}>Farm Info</Text>
+
+      {error && <Text style={styles.errorText}>{error}</Text>}
+
       <AppInput 
         icon="business-outline"
         placeholder="Business Name"
@@ -124,5 +125,11 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 30,
     height: 50,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginBottom: Spacing.md,
+    textAlign: 'center',
   },
 });

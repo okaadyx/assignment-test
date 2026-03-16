@@ -21,18 +21,55 @@ export interface AttachedFile {
   uri: string;
 }
 
+export interface BusinessHours {
+  mon?: string[];
+  tue?: string[];
+  wed?: string[];
+  thu?: string[];
+  fri?: string[];
+  sat?: string[];
+  sun?: string[];
+}
+
+export interface RegisterRequest {
+  full_name: string;
+  email: string;
+  phone: string;
+  password?: string;
+  role: string;
+  business_name: string;
+  informal_name: string;
+  address: string;
+  city: string;
+  state: string;
+  zip_code: number;
+  registration_proof: string;
+  business_hours: BusinessHours;
+  device_token: string;
+  type: string;
+  social_id?: string;
+}
+
+export interface RegisterResponse {
+  success: string;
+  message: string;
+  token?: string;
+}
+
 export interface StepProps {
   formData: SignupFormData;
   updateFormData: (data: Partial<SignupFormData>) => void;
   nextStep: () => void;
   prevStep: () => void;
+  loading?: boolean;
+  error?: string | null;
 }
 
 export interface Step4Props extends StepProps {
-  selectedDays: string[];
-  toggleDay: (day: string) => void;
-  selectedHours: string;
-  setSelectedHours: (hours: string) => void;
+  businessHours: BusinessHours;
+  activeDay: string;
+  setActiveDay: (day: string) => void;
+  toggleTimeSlot: (day: string, slot: string) => void;
 }
 
 export interface Step3Props extends StepProps {

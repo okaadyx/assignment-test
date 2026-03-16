@@ -16,7 +16,6 @@ import { Colors, Spacing, Typography } from '../../constants/Theme';
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleLogin = () => {
@@ -51,22 +50,18 @@ export default function LoginScreen() {
               icon="mail-outline"
             />
 
-            <View>
-              <AppInput
-                label="Password"
-                placeholder="Enter your password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry={!showPassword}
-                icon="lock-closed-outline"
-              />
-              <TouchableOpacity
-                style={styles.showHideContainer}
-                onPress={() => setShowPassword(!showPassword)}
-              >
-                <Text style={styles.forgotText}>{showPassword ? 'Hide' : 'Forgot?'}</Text>
-              </TouchableOpacity>
-            </View>
+            <AppInput
+              label="Password"
+              placeholder="Enter your password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              icon="lock-closed-outline"
+              onForgotPress={() => {
+                // Implement forgot password logic
+                console.log('Forgot password pressed');
+              }}
+            />
 
             <AppButton
               title="Login"
@@ -120,16 +115,6 @@ const styles = StyleSheet.create({
   },
   form: {
     flex: 1,
-  },
-  showHideContainer: {
-    position: 'absolute',
-    right: Spacing.md,
-    top: 38,
-  },
-  forgotText: {
-    color: Colors.primary,
-    fontWeight: '600',
-    fontSize: 14,
   },
   loginButton: {
     marginTop: Spacing.lg,

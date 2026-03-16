@@ -5,12 +5,15 @@ import { AppInput, AppButton, SocialLink } from '../core';
 import { Colors, Spacing } from '../../constants/Theme';
 import { StepProps } from '../../types/SignupTypes';
 
-export const Step1Welcome: React.FC<StepProps> = ({ formData, updateFormData, nextStep }) => {
+export const Step1Welcome: React.FC<StepProps> = ({ formData, updateFormData, nextStep, error }) => {
   const router = useRouter();
 
   return (
     <View>
       <Text style={styles.title}>Welcome!</Text>
+      
+      {error && <Text style={styles.errorText}>{error}</Text>}
+
       <View style={styles.socialContainer}>
         <SocialLink type="google" onPress={() => {}} />
         <SocialLink type="apple" onPress={() => {}} />
@@ -98,5 +101,11 @@ const styles = StyleSheet.create({
     width: 180,
     borderRadius: 30,
     height: 50,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginBottom: Spacing.md,
+    textAlign: 'center',
   },
 });

@@ -1,39 +1,49 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { AppButton } from '../core';
-import { Colors, Spacing } from '../../constants/Theme';
-import { Step4Props } from '../../types/SignupTypes';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DAYS, TIME_SLOTS } from '../../constants/SignupConstants';
+import { Colors, Spacing } from '../../constants/Theme';
+import { BusinessHours, Step4Props } from '../../types/SignupTypes';
+import { AppButton } from '../core';
 
-export const Step4BusinessHours: React.FC<Step4Props> = ({ 
-  nextStep, 
-  prevStep, 
-  selectedDays, 
-  toggleDay, 
-  selectedHours, 
-  setSelectedHours 
+export const Step4BusinessHours: React.FC<Step4Props> = ({
+  nextStep,
+  prevStep,
+  businessHours,
+  activeDay,
+  setActiveDay,
+  toggleTimeSlot,
+  loading,
+  error
 }) => {
+  const mapping: Record<string, keyof BusinessHours> = {
+    'M': 'mon', 'T': 'tue', 'W': 'wed', 'Th': 'thu', 'F': 'fri', 'S': 'sat', 'Su': 'sun'
+  };
+  const activeKey = mapping[activeDay] as keyof BusinessHours;
+  const activeDaySlots = businessHours[activeKey] || [];
+
   return (
     <View>
       <Text style={styles.title}>Business Hours</Text>
       <Text style={styles.description}>
         Choose the hours your farm is open for pickups. This will allow customers to order deliveries.
       </Text>
-      
+
+      {error && <Text style={styles.errorText}>{error}</Text>}
+
       <View style={styles.daysWrapper}>
         {DAYS.map((day) => (
-          <TouchableOpacity 
-            key={day} 
-            onPress={() => toggleDay(day)}
+          <TouchableOpacity
+            key={day}
+            onPress={() => setActiveDay(day)}
             style={[
-              styles.dayItem, 
-              selectedDays.includes(day) && styles.dayItemSelected
+              styles.dayItem,
+              activeDay === day && styles.dayItemSelected
             ]}
           >
             <Text style={[
               styles.dayItemText,
-              selectedDays.includes(day) && styles.dayItemTextSelected
+              activeDay === day && styles.dayItemTextSelected
             ]}>{day}</Text>
           </TouchableOpacity>
         ))}
@@ -41,33 +51,44 @@ export const Step4BusinessHours: React.FC<Step4Props> = ({
 
       <View style={styles.hoursWrapper}>
         {TIME_SLOTS.map((slot) => (
-          <TouchableOpacity 
-            key={slot} 
-            onPress={() => setSelectedHours(slot)}
+          <TouchableOpacity
+            key={slot}
+            onPress={() => toggleTimeSlot(activeDay, slot)}
             style={[
               styles.hourChip,
-              selectedHours === slot && styles.hourChipSelected
+              activeDaySlots.includes(slot) && styles.hourChipSelected
             ]}
           >
             <Text style={[
               styles.hourText,
-              selectedHours === slot && styles.hourTextSelected
+              activeDaySlots.includes(slot) && styles.hourTextSelected
             ]}>{slot}</Text>
           </TouchableOpacity>
         ))}
       </View>
 
       <View style={styles.footerWithBack}>
-        <TouchableOpacity onPress={prevStep}>
-          <Ionicons name="arrow-back" size={24} color={Colors.text} />
+        <TouchableOpacity onPress={prevStep} disabled={loading}>
+          <Ionicons name="arrow-back" size={24} color={loading ? '#CCC' : Colors.text} />
         </TouchableOpacity>
-        <AppButton title="Signup" onPress={nextStep} style={styles.continueButtonStep} />
+        <AppButton
+          title={loading ? "Registering..." : "Signup"}
+          onPress={nextStep}
+          style={styles.continueButtonStep}
+          disabled={loading}
+        />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginBottom: Spacing.md,
+    textAlign: 'center',
+  },
   title: {
     fontSize: 32,
     fontWeight: 'bold',

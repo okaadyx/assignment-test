@@ -32,6 +32,13 @@ export default function SignupScreen() {
     attachedFile,
     handleDocumentPick,
     removeFile,
+    submitSignup,
+    loading,
+    error,
+    businessHours,
+    activeDay,
+    setActiveDay,
+    toggleTimeSlot,
   } = useSignupForm();
 
   const renderStep = () => {
@@ -42,6 +49,7 @@ export default function SignupScreen() {
           updateFormData={updateFormData}
           nextStep={nextStep}
           prevStep={prevStep}
+          error={error}
         />;
       case 2:
         return <Step2FarmInfo
@@ -49,6 +57,7 @@ export default function SignupScreen() {
           updateFormData={updateFormData}
           nextStep={nextStep}
           prevStep={prevStep}
+          error={error}
         />;
       case 3:
         return <Step3Verification
@@ -59,17 +68,20 @@ export default function SignupScreen() {
           attachedFile={attachedFile}
           handleDocumentPick={handleDocumentPick}
           removeFile={removeFile}
+          error={error}
         />;
       case 4:
         return <Step4BusinessHours
           formData={formData}
           updateFormData={updateFormData}
-          nextStep={nextStep}
+          nextStep={submitSignup}
           prevStep={prevStep}
-          selectedDays={selectedDays}
-          toggleDay={toggleDay}
-          selectedHours={selectedHours}
-          setSelectedHours={setSelectedHours}
+          businessHours={businessHours}
+          activeDay={activeDay}
+          setActiveDay={setActiveDay}
+          toggleTimeSlot={toggleTimeSlot}
+          loading={loading}
+          error={error}
         />;
       case 5:
         return <Step5Confirmation />;

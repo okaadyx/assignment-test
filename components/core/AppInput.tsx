@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   View, 
   TextInput, 
   Text, 
   StyleSheet, 
   ViewStyle, 
-  TextInputProps 
+  TextInputProps,
+  TouchableOpacity
 } from 'react-native';
 import { Colors, Typography, Spacing } from '../../constants/Theme';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,6 +16,7 @@ interface AppInputProps extends TextInputProps {
   error?: string;
   icon?: keyof typeof Ionicons.glyphMap;
   containerStyle?: ViewStyle;
+  onForgotPress?: () => void;
 }
 
 export const AppInput: React.FC<AppInputProps> = ({ 
@@ -22,8 +24,16 @@ export const AppInput: React.FC<AppInputProps> = ({
   error, 
   icon, 
   containerStyle, 
+  secureTextEntry,
+  onForgotPress,
+  value,
   ...props 
 }) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const isSecure = secureTextEntry && !isPasswordVisible;
+  const showForgot = onForgotPress && !value;
+
   return (
     <View style={[styles.container, containerStyle]}>
       {label && <Text style={styles.label}>{label}</Text>}
@@ -39,8 +49,30 @@ export const AppInput: React.FC<AppInputProps> = ({
         <TextInput 
           style={styles.input}
           placeholderTextColor="#999"
+          secureTextEntry={isSecure}
+          value={value}
           {...props}
         />
+        {secureTextEntry && (
+          <View style={styles.rightArea}>
+            {showForgot ? (
+              <TouchableOpacity onPress={onForgotPress}>
+                <Text style={styles.forgotText}>Forgot?</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity 
+                onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+                style={styles.eyeIcon}
+              >
+                <Ionicons 
+                  name={isPasswordVisible ? "eye-off-outline" : "eye-outline"} 
+                  size={20} 
+                  color={Colors.textSecondary} 
+                />
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
       </View>
       {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
@@ -79,6 +111,18 @@ const styles = StyleSheet.create({
     ...Typography.body,
     fontSize: 14,
     color: Colors.text,
+  },
+  rightArea: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  forgotText: {
+    color: Colors.primary,
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  eyeIcon: {
+    paddingLeft: Spacing.sm,
   },
   errorText: {
     ...Typography.caption,

@@ -10,11 +10,13 @@ export const Step3Verification: React.FC<Step3Props> = ({
   prevStep, 
   handleDocumentPick, 
   attachedFile, 
-  removeFile 
+  removeFile,
+  error
 }) => {
   return (
     <View>
       <Text style={styles.title}>Verification</Text>
+      {error && <Text style={styles.errorText}>{error}</Text>}
       <Text style={styles.description}>
         Attached proof of Department of Agriculture registrations i.e. Florida Fresh, USDA Approved, USDA Organic
       </Text>
@@ -104,5 +106,11 @@ const styles = StyleSheet.create({
     width: 200,
     borderRadius: 30,
     height: 50,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginBottom: Spacing.md,
+    textAlign: 'center',
   },
 });
