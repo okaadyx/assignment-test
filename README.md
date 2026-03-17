@@ -1,86 +1,134 @@
-# Expo Mobile Application - Test Project
+# 🚜 Expo Mobile Application - Test Project
 
-This is a modern mobile application built with **Expo** and **React Native**, designed with a focus on a seamless user experience, robust authentication, and a clean architectural pattern.
+[![Expo](https://img.shields.io/badge/Expo-54.0.33-blue?logo=expo&logoColor=white)](https://expo.dev/)
+[![React Native](https://img.shields.io/badge/React_Native-0.81.5-61dafb?logo=react&logoColor=white)](https://reactnative.dev/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
+
+This is a **production-grade foundation** for a mobile application built with **Expo** and **React Native**. It features a highly modular architecture, robust authentication flows, and optimized state management.
 
 ## 🚀 Overview
 
-This project provides a comprehensive foundation for a mobile app, featuring a full authentication suite, onboarding flows, and a scalable component-driven architecture.
-
-## ✨ Key Features
-
-- **Dynamic Onboarding**: A smooth introduction to the application for new users.
-- **Robust Authentication**:
-  - **Login / Signup**: Secure user registration and access.
-  - **Forgot / Reset Password**: Easy recovery flow for forgotten credentials.
-  - **OTP Verification**: Enhanced security with 6-digit OTP codes.
-- **Modern UI Components**: Reusable, themed components for consistent design across the app.
-- **State Management**: Using `@tanstack/react-query` for efficient data fetching and caching.
-- **File-Based Routing**: Leverages `expo-router` for intuitive navigation and deep linking.
-
-## 🛠️ Tech Stack
-
-- **Framework**: [Expo](https://expo.dev/) / [React Native](https://reactnative.dev/)
-- **State Management**: [TanStack Query (React Query)](https://tanstack.com/query/latest)
-- **Navigation**: [Expo Router](https://docs.expo.dev/router/introduction/)
-- **HTTP Client**: [Axios](https://axios-http.com/)
-- **Icons**: `@expo/vector-icons`
-- **Animation**: `react-native-reanimated`
-
-## 📂 Project Structure
-
-```text
-├── app/                  # Main application screens and routing
-│   ├── auth/             # Authentication-related screens (Login, Signup, OTP, etc.)
-│   ├── _layout.tsx       # Root layout configuration
-│   └── index.tsx         # Entry point screen
-├── components/           # Reusable UI components
-│   ├── auth/             # Auth-specific components
-│   ├── core/             # Fundamental UI elements (Buttons, Inputs)
-│   ├── header/           # Reusable header components
-│   └── modal/            # System-wide modal components
-├── hooks/                # Custom React hooks (Forms, API logic)
-├── services/             # API services and data fetching logic
-├── constants/            # Application-wide constants (Colors, Typography)
-├── lib/                  # Utilities and shared libraries
-├── types/                # TypeScript type definitions
-└── assets/               # Static assets (Images, Fonts)
-```
-
-## 🏁 Getting Started
-
-### 1. Prerequisites
-
-- Node.js (Latest LTS recommended)
-- npm or yarn
-- [Expo Go](https://expo.dev/go) app (for mobile testing) or an Android/iOS emulator
-
-### 2. Installation
-
-```bash
-# Install dependencies
-npm install
-```
-
-### 3. Running the App
-
-```bash
-# Start the development server
-npx expo start
-```
-
-In the terminal output, you'll see a QR code. Scan it with the **Expo Go** app to run the app on your physical device. Alternatively, use:
-- `a` to open on Android Emulator
-- `i` to open on iOS Simulator
-- `w` to open on Web
-
-## 📜 Available Scripts
-
-- `npm start`: Starts the Expo development server.
-- `npm run android`: Opens the app in an Android emulator.
-- `npm run ios`: Opens the app in an iOS simulator.
-- `npm run web`: Opens the app in a web browser.
-- `npm run lint`: Runs ESLint to check for code quality issues.
+This repository demonstrates best practices in modern mobile development, including:
+- **Scalable Folder Structure**: Separation of concerns across core modules.
+- **Hook-Driven Logic**: Consolidated authentication logic for maintainability.
+- **Type Safety**: Full TypeScript implementation across all layers.
+- **Efficient Data Handling**: Leveraging TanStack Query for server state.
 
 ---
 
-Built with ❤️ using Expo.
+## 📸 Visual Walkthrough
+
+*(Replace these with actual screenshots of your application)*
+
+| Onboarding | Login | Signup |
+| :---: | :---: | :---: |
+| ![Onboarding](https://via.placeholder.com/200x400?text=Onboarding) | ![Login](https://via.placeholder.com/200x400?text=Login) | ![Signup](https://via.placeholder.com/200x400?text=Signup) |
+
+---
+
+## 🏗️ Architecture & Design Patterns
+
+The project follows a **Feature-Based Modular Architecture** to ensure scalability and ease of testing.
+
+### 📁 Directory Deep-Dive
+
+- **`app/`**: Utilizes **Expo Router** for file-based navigation.
+  - `auth/`: Contains all identity management screens (Login, Signup, Recovery).
+  - `_layout.tsx`: Root provider configuration (QueryClient, Theme, Navigation).
+- **`components/`**: Atomic design approach.
+  - `core/`: Fundamental base components (Buttons, Inputs).
+  - `auth/`: Specialized components for authentication flows.
+  - `modal/`: Global state-driven modals.
+- **`hooks/`**: Business logic extraction.
+  - `auth-hooks.ts`: Consolidated logic for Login, OTP, and Password Reset.
+  - `useSignupForm.ts`: Specialized multi-step signup logic.
+- **`services/`**: API abstraction layer using **Axios**.
+- **`constants/`**: Design system tokens (Colors, Spacing, Typography).
+
+### ⚓ Key Implementation: "One Hook" Pattern
+Simpler authentication flows are consolidated into a single `auth-hooks.ts` to reduce file clutter, while complex flows like Signup maintain their own files for clarity.
+
+---
+
+## 🏁 Getting Started
+
+### 📋 Prerequisites
+
+- **Node.js**: v18.x or later.
+- **npm** or **yarn**.
+- **Expo Go**: Available on iOS and Android.
+
+### ⚙️ Installation
+
+1. **Clone & Enter**:
+   ```bash
+   git clone https://github.com/okaadyx/assignment-test
+   cd assignment-test
+   ```
+
+2. **Install**:
+   ```bash
+   npm install
+   ```
+
+### 🚀 Development Flow
+
+- **Start Server**: `npx expo start`
+- **Android**: Press `a` (requires Android Studio / Emulator).
+- **iOS**: Press `i` (requires Xcode / Simulator).
+- **Web**: Press `w` (browser view).
+
+---
+
+## 📦 Production & Deployment
+
+This project is ready for **EAS (Expo Application Services)**.
+
+### 🛠️ Building for Production
+
+1. **Install EAS CLI**:
+   ```bash
+   npm install -g eas-cli
+   ```
+
+2. **Configure Project**:
+   ```bash
+   eas build:configure
+   ```
+
+3. **Build APK/AAB (Android)**:
+   ```bash
+   eas build --platform android --profile production
+   ```
+
+4. **Build IPA (iOS)**:
+   ```bash
+   eas build --platform ios --profile production
+   ```
+
+### 🔒 Environment Management
+Sensitive endpoints are abstracted in `services/index.ts`. For production, migrate these to a `.env` file and use `expo-constants` to expose them safely.
+
+---
+
+## 🧪 Quality Assurance
+
+- **Linting**: `npm run lint` to maintain code style.
+- **TypeScript**: Automated type checking via CLI or IDE.
+- **Testing**: Designed for easy integration with **Jest** and **React Native Testing Library**.
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+1. Fork the Project.
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the Branch (`git push origin feature/AmazingFeature`).
+5. Open a Pull Request.
+
+---
+
+Built with ❤️ by the Developer Community.

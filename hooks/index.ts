@@ -1,6 +1,3 @@
-export * from './useForgotPasswordForm';
-export * from './useLoginForm';
-export * from './useResetPasswordForm';
+export * from './auth-hooks';
 export * from './useSignupForm';
-export * from './useVerifyOtpForm';
 
