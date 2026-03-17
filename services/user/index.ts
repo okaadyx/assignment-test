@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import * as SecureStore from "expo-secure-store";
 import {
+  ForgotPasswordRequest,
   LoginRequest,
   LoginResponse,
   RegisterRequest,
@@ -8,7 +9,7 @@ import {
   ResetPasswordRequest,
   ResetPasswordResponse,
   VerifyOtpRequest,
-  VerifyOtpResponse
+  VerifyOtpResponse,
 } from "../../types/UserTypes";
 
 export class UserApi {
@@ -19,20 +20,27 @@ export class UserApi {
 
   async signup(data: RegisterRequest): Promise<RegisterResponse> {
     try {
-      const response = await this.client.post<RegisterResponse>("/user/register", data);
+      const response = await this.client.post<RegisterResponse>(
+        "/user/register",
+        data,
+      );
       const result = response.data;
       return result;
     } catch (error: any) {
       return {
         success: "false",
-        message: error.response?.data?.message || "Server error while registering.",
+        message:
+          error.response?.data?.message || "Server error while registering.",
       };
     }
   }
 
   async login(data: LoginRequest): Promise<LoginResponse> {
     try {
-      const response = await this.client.post<LoginResponse>("/user/login", data);
+      const response = await this.client.post<LoginResponse>(
+        "/user/login",
+        data,
+      );
       const result = response.data;
 
       if (result.token) {
@@ -42,46 +50,62 @@ export class UserApi {
     } catch (error: any) {
       return {
         success: "false",
-        message: error.response?.data?.message || "Server error while logging in.",
+        message:
+          error.response?.data?.message || "Server error while logging in.",
       };
     }
   }
 
   async verifyOtp(data: VerifyOtpRequest): Promise<VerifyOtpResponse> {
     try {
-      const response = await this.client.post<VerifyOtpResponse>("/user/verify-otp", data);
+      const response = await this.client.post<VerifyOtpResponse>(
+        "/user/verify-otp",
+        data,
+      );
       return response.data;
     } catch (error: any) {
       return {
         success: "false",
-        message: error.response?.data?.message || "Unable to verify OTP, please try again.",
+        message:
+          error.response?.data?.message ||
+          "Unable to verify OTP, please try again.",
       };
     }
   }
 
-  async resetPassword(data: ResetPasswordRequest): Promise<ResetPasswordResponse> {
+  async resetPassword(
+    data: ResetPasswordRequest,
+  ): Promise<ResetPasswordResponse> {
     try {
-      const response = await this.client.post<ResetPasswordResponse>("/user/reset-password", data);
+      const response = await this.client.post<ResetPasswordResponse>(
+        "/user/reset-password",
+        data,
+      );
       return response.data;
     } catch (error: any) {
       return {
         success: "false",
-        message: error.response?.data?.message || "Your password reset request failed, please try again.",
+        message:
+          error.response?.data?.message ||
+          "Your password reset request failed, please try again.",
       };
     }
   }
 
-  //   async forgotPassword(data: ForgotPasswordRequest): Promise<RegisterResponse> {
-  //     try {
-  //       const response = await this.client.post<RegisterResponse>("/user/forgot-password", data);
-  //       return response.data;
-  //     } catch (error: any) {
-  //       return {
-  //         success: "false",
-  //         message: error.response?.data?.message || "Failed to send reset code.",
-  //       };
-  //     }
-  //   }
+  async forgotPassword(data: ForgotPasswordRequest): Promise<RegisterResponse> {
+    try {
+      const response = await this.client.post<RegisterResponse>(
+        "/user/forgot-password",
+        data,
+      );
+      return response.data;
+    } catch (error: any) {
+      return {
+        success: "false",
+        message: error.response?.data?.message || "Failed to send reset code.",
+      };
+    }
+  }
   async logout(): Promise<void> {
     try {
       await SecureStore.deleteItemAsync("token");
