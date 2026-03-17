@@ -1,5 +1,5 @@
 export const Colors = {
-  primary: '#D27C5C', // Terracotta
+  primary: '#D27C5C', // Terracotta Orange
   secondary: '#61B37D', // Sage Green
   accent: '#F9C05F', // Ochre
   background: '#FDF3F0', // Off-white/Pinkish tint

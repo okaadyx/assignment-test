@@ -1,4 +1,4 @@
-# 🚜 Expo Mobile Application - Test Project
+# Farmer Eats 🚜🌾
 
 [![Expo](https://img.shields.io/badge/Expo-54.0.33-blue?logo=expo&logoColor=white)](https://expo.dev/)
 [![React Native](https://img.shields.io/badge/React_Native-0.81.5-61dafb?logo=react&logoColor=white)](https://reactnative.dev/)
