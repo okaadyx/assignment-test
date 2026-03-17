@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import * as SecureStore from "expo-secure-store";
 import {
+  BaseResponse,
   ForgotPasswordRequest,
   LoginRequest,
   LoginResponse,
@@ -17,15 +18,27 @@ export class UserApi {
   constructor(client: AxiosInstance) {
     this.client = client;
   }
-
   async signup(data: RegisterRequest): Promise<RegisterResponse> {
     try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (key === "business_hours") {
+          formData.append(key, JSON.stringify(value));
+        } else if (value !== undefined) {
+          formData.append(key, value as any);
+        }
+      });
+
       const response = await this.client.post<RegisterResponse>(
         "/user/register",
-        data,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
       );
-      const result = response.data;
-      return result;
+      return response.data;
     } catch (error: any) {
       return {
         success: "false",
@@ -92,11 +105,13 @@ export class UserApi {
     }
   }
 
-  async forgotPassword(data: ForgotPasswordRequest): Promise<RegisterResponse> {
+  async forgotPassword(data: ForgotPasswordRequest): Promise<BaseResponse> {
     try {
-      const response = await this.client.post<RegisterResponse>(
+      const response = await this.client.post<BaseResponse>(
         "/user/forgot-password",
-        data,
+        {
+          mobile: data.mobile,
+        },
       );
       return response.data;
     } catch (error: any) {
@@ -106,6 +121,7 @@ export class UserApi {
       };
     }
   }
+
   async logout(): Promise<void> {
     try {
       await SecureStore.deleteItemAsync("token");

@@ -32,7 +32,7 @@ export default function VerifyOTPScreen() {
     setOtp(newOtp);
 
     // Auto-focus next input
-    if (value && index < 4) {
+    if (value && index < 5) {
       inputRefs.current[index + 1].focus();
     }
   };
@@ -59,7 +59,7 @@ export default function VerifyOTPScreen() {
           <View style={styles.header}>
             <Text style={styles.title}>Verify OTP</Text>
             <Text style={styles.subtitle}>
-              Remember your pasword? <Text style={styles.link} onPress={() => router.push('/auth/login')}>Login</Text>
+              Remember your password? <Text style={styles.link} onPress={() => router.push('/auth/login')}>Login</Text>
             </Text>
           </View>
 
@@ -68,7 +68,9 @@ export default function VerifyOTPScreen() {
               {otp.map((digit, index) => (
                 <TextInput
                   key={index}
-                  ref={(ref) => (inputRefs.current[index] = ref as TextInput)}
+                  ref={(ref) => {
+                    inputRefs.current[index] = ref as TextInput;
+                  }}
                   style={styles.otpInput}
                   value={digit}
                   onChangeText={(value) => handleOtpChange(value, index)}
@@ -136,8 +138,8 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xl,
   },
   otpInput: {
-    width: 60,
-    height: 60,
+    width: 45,
+    height: 50,
     backgroundColor: Colors.inputBackground,
     borderRadius: 8,
     textAlign: 'center',

@@ -49,9 +49,12 @@ export interface RegisterRequest {
   social_id?: string;
 }
 
-export interface RegisterResponse {
+export interface BaseResponse {
   success: string;
   message: string;
+}
+
+export interface RegisterResponse extends BaseResponse {
   token?: string;
 }
 
@@ -86,14 +89,12 @@ export interface ResetPasswordRequest {
   cpassword: string;
 }
 
-export interface ResetPasswordResponse {
-  success: string;
-  message: string;
+export interface ResetPasswordResponse extends BaseResponse {
   is_verified?: string;
 }
 
 export interface ForgotPasswordRequest {
-  phone: string;
+  mobile: string;
 }
 
 export interface StepProps {

@@ -1,5 +1,6 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
+import { api } from '../services';
 
 export const useForgotPasswordForm = () => {
   const [phone, setPhone] = useState('');
@@ -16,8 +17,12 @@ export const useForgotPasswordForm = () => {
     setError(null);
 
     try {
-      router.push('/auth/verify-otp');
-
+      const response = await api.user.forgotPassword({ mobile: phone });
+      if (String(response.success).toLowerCase() === 'true') {
+        router.push('/auth/verify-otp');
+      } else {
+        setError(response.message);
+      }
     } catch (err) {
       setError('An unexpected error occurred.');
     } finally {
