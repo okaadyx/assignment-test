@@ -39,15 +39,17 @@ Get the latest version of the app directly on your Android device:
 Watch the application in action:
 
 <div align="center">
-  <video src="./assets/screenshots/screen-20260318-103731.mp4" width="300" controls>
-    Your browser does not support the video tag.
-  </video>
+  <a href="./assets/screenshots/screen-20260318-103731.mp4">
+    <img src="./assets/screenshots/onbording1.jpeg" width="400" alt="Watch Demo Video" />
+    <br />
+    🎬 <b>Click here to view the Demo Video</b>
+  </a>
 </div>
 
 ---
 
 > [!IMPORTANT]
-> **Technical Note regarding Password Recovery Flow**
+> **Technical Note: Password Recovery Flow Availability**
 >
 > Please be advised that the backend endpoint for the Password Reset OTP service is currently not functional. Consequently, the accompanying demo video does not illustrate the transition to the OTP Verification and Password Reset screens.
 >
