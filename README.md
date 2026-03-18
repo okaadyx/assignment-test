@@ -27,8 +27,8 @@ Get the latest version of the app directly on your Android device:
     <td align="center"><b>Splash Screen</b></td>
   </tr>
   <tr>
-    <td align="center"><img src="./assets/images/icon.png" width="128" alt="App Icon"/></td>
-    <td align="center"><img src="./assets/images/splash-icon.png" width="128" alt="Splash Screen"/></td>
+    <td align="center"><img src="./assets/images/icon.png" width="100" alt="App Icon"/></td>
+    <td align="center"><img src="./assets/images/splash-icon.png" width="100" alt="Splash Screen"/></td>
   </tr>
 </table>
 
@@ -39,10 +39,10 @@ Get the latest version of the app directly on your Android device:
 Watch the application in action:
 
 <div align="center">
-  <a href="./assets/screenshots/screen-20260318-103731.mp4">
-    <img src="./assets/screenshots/onbording1.jpeg" width="400" alt="Watch Demo Video" />
+  <a href="https://drive.google.com/file/d/108pBFBgl6Fhm4-NhMQr8aIKg5j_fgV39/view?usp=sharing">
+    <img src="./assets/images/icon.png" width="300" alt="Watch Demo Video" />
     <br />
-    🎬 <b>Click here to view the Demo Video</b>
+    🎬 <b>Click here to view the Demo Video on Google Drive</b>
   </a>
 </div>
 
