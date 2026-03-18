@@ -20,21 +20,12 @@ export class UserApi {
   }
   async signup(data: RegisterRequest): Promise<RegisterResponse> {
     try {
-      const formData = new FormData();
-      Object.entries(data).forEach(([key, value]) => {
-        if (key === "business_hours") {
-          formData.append(key, JSON.stringify(value));
-        } else if (value !== undefined) {
-          formData.append(key, value as any);
-        }
-      });
-
       const response = await this.client.post<RegisterResponse>(
         "/user/register",
-        formData,
+        data,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         },
       );

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { router } from 'expo-router';
 import * as DocumentPicker from 'expo-document-picker';
-import { SignupFormData, SignupStep, AttachedFile, RegisterRequest, BusinessHours } from '../types/UserTypes';
+import { router } from 'expo-router';
+import { useState } from 'react';
 import { api } from '../services';
+import { AttachedFile, BusinessHours, RegisterRequest, SignupFormData, SignupStep } from '../types/UserTypes';
 
 export const useSignupForm = () => {
   const [step, setStep] = useState<SignupStep>(1);
@@ -19,7 +19,7 @@ export const useSignupForm = () => {
     state: '',
     zip: '',
   });
-  
+
   const [activeDay, setActiveDay] = useState<string>('M');
   const [businessHours, setBusinessHours] = useState<BusinessHours>({
     mon: [],
@@ -30,7 +30,7 @@ export const useSignupForm = () => {
     sat: [],
     sun: [],
   });
-  
+
   const [attachedFile, setAttachedFile] = useState<AttachedFile | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -86,7 +86,7 @@ export const useSignupForm = () => {
       setStep((s) => Math.min(s + 1, 5) as SignupStep);
     }
   };
-  
+
   const prevStep = () => {
     if (step === 1) router.back();
     else setStep((s) => Math.max(s - 1, 1) as SignupStep);
@@ -119,7 +119,7 @@ export const useSignupForm = () => {
       const result = await DocumentPicker.getDocumentAsync({
         type: ['application/pdf', 'image/*'],
       });
-      
+
       if (!result.canceled) {
         setAttachedFile({
           name: result.assets[0].name,
@@ -155,7 +155,7 @@ export const useSignupForm = () => {
         business_hours: businessHours,
         device_token: "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx",
         type: "email",
-        social_id: "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx" // Matching the example
+        social_id: "0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx"
       };
 
       console.log('Submitting signup with payload:', JSON.stringify(payload, null, 2));
